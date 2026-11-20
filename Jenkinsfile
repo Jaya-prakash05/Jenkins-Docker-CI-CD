@@ -9,7 +9,7 @@ pipeline {
     stages {
 
         stage('GitHub') {
-            steps {
+            steps { 
                 git branch: 'main',
             url: 'https://github.com/Jaya-prakash05/Jenkins-Docker-CI-CD.git'
             }
