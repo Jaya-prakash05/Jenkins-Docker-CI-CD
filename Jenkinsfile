@@ -10,7 +10,8 @@ pipeline {
 
         stage('GitHub') {
             steps {
-                git 'https://github.com/Jaya-prakash05/Jenkins-Docker-CI-CD.git'
+                git branch: 'main',
+            url: 'https://github.com/Jaya-prakash05/Jenkins-Docker-CI-CD.git'
             }
         }
 
