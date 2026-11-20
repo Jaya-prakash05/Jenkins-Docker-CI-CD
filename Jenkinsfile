@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_USER = 'jayaprakash5'
-        IMAGE_NAME = "${jayaprakash5}/myapp"
+        IMAGE_NAME = 'jayaprakash5/myapp'
     }
 
     stages {
