@@ -1,17 +1,17 @@
+
 pipeline {
     agent any
 
     environment {
-        DOCKER_USER = 'jayaprakash5'
         IMAGE_NAME = 'jayaprakash5/myapp'
     }
 
     stages {
 
         stage('GitHub') {
-            steps { 
+            steps {
                 git branch: 'main',
-            url: 'https://github.com/Jaya-prakash05/Jenkins-Docker-CI-CD.git'
+                url: 'https://github.com/Jaya-prakash05/Jenkins-Docker-CI-CD.git'
             }
         }
 
@@ -22,20 +22,20 @@ pipeline {
         }
 
         stage('Push') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'DOCKER_USERNAME',
-            passwordVariable: 'DOCKER_PASSWORD'
-        )]) {
-            sh '''
-                echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-                docker tag myapp:latest $DOCKER_IMAGE:latest
-                docker push $DOCKER_IMAGE:latest
-            '''
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DH_USER',
+                    passwordVariable: 'DH_PASS'
+                )]) {
+                    sh '''
+                        echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
+                        docker tag myapp:latest $IMAGE_NAME:latest
+                        docker push $IMAGE_NAME:latest
+                    '''
+                }
+            }
         }
-    }
-}
 
         stage('Deploy') {
             steps {
